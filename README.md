@@ -15,12 +15,20 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - Azure
 
 ### 機能
-- ユーザー登録（id, name, email, password, prefecture）
+- ユーザー登録（id, name, email, password, prefecture, created_at, updated_at）
   - ログイン
-- 投稿(title, content, user_id)
+- 投稿（id, title, content, user_id, created_at, updated_at）
   - 新規投稿
   - 投稿詳細、編集、削除
   - 投稿一覧(都道府県ごとの絞り込み)
+- 天気データ（id, date, prefecture, temperature_max, temperature_min,　precipitation(降水確率), weather_type, description, created_at, updated_at）
+  - 地域ごとの天気、降水確率、最高気温、最低気温の表示。
+  - 一週間の天気の表示。
+- AIコンテンツ（id, user_id, post_id, content, created_at, updated_at）
+  - AIへの相談チャット。
+  - ユーザーが希望するカテゴリーへの相談。
+- カテゴリー（id, AiContent_id, cheering(励まし), clothes(洋服), washing(洗濯), farming(農業)）
+  - ユーザーが指定したカテゴリーについて相談できる。（送るメッセージの効率化。）
 
 ### 今後追加したい機能
 - 天気APIの導入。

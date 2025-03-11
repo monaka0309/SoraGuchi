@@ -1,8 +1,12 @@
+conda-libmamba-solver @ file:///croot/conda-libmamba-solver_1727775630457/work/src
 django-debug-toolbar==5.0.1
 jsonpointer==2.1
+platformdirs @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/platformdirs_1701803010714/work
 psycopg2==2.9.10
 pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
+PySocks @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/pysocks_1699237568675/work
 python-dateutil==2.9.0.post0
 setuptools==75.1.0
 six==1.17.0
+truststore @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/truststore_1701805928787/work
 wheel==0.44.0

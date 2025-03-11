@@ -1,4 +1,5 @@
 ## ソラグチ（空にグチをこぼすアプリ）
+https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - 気温の変化に左右される日々に対しての愚痴を共有して励まし合いましょう。
 - 辛いのはあなただけではありません。
 

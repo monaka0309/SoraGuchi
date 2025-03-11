@@ -4,5 +4,4 @@ psycopg2==2.9.10
 python-dateutil==2.9.0.post0
 setuptools==75.1.0
 six==1.17.0
-truststore @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/truststore_1701805928787/work
 wheel==0.44.0

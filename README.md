@@ -43,6 +43,7 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
   - 農業の進め方のアドバイスをくれる。（農業）
   - 車のワイパーを立てておいた方がいいか教えてくれる。（車）
 - Googleログイン機能
+- LINEで決まった時間に通知してくれる。
 
 
 

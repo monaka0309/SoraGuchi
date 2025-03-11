@@ -1,3 +1,6 @@
-from django.db import models
+from django.db import models # type: ignore
 
-# Create your models here.
+class Posts(models.Model):
+    title = models.CharField(max_length=50)
+    content = models.CharField(max_length=140)
+

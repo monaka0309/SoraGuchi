@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -76,10 +76,20 @@ WSGI_APPLICATION = 'SoraGuchiProjrct.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "soraguchi", #ご自身が作成したデータベース名
+        "USER": "postgres", #ご自身が設定したユーザー名
+        "PASSWORD": "postgres", #ご自身が設定したパスワード
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -123,6 +133,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_DIRS = [
-    ("static_file", STATIC_DIR),
-]
+# STATICFILES_DIRS = [
+#     ("static_file", STATIC_DIR),
+# ]

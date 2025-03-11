@@ -1,4 +1,3 @@
-conda-libmamba-solver @ file:///croot/conda-libmamba-solver_1727775630457/work/src
 django-debug-toolbar==5.0.1
 jsonpointer==2.1
 platformdirs @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/platformdirs_1701803010714/work

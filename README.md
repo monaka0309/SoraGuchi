@@ -39,7 +39,7 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
   - 天気を確認できる。
   - チャットに相談ができる。
 
-### 今後追加したい機能
+### 今後実装したい機能
 - 天気APIの導入。
 - AIの導入。(AWS Bedrock)
   - 例：

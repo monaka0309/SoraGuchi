@@ -42,6 +42,8 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
   - そばの適切な水分量を教えてくれる。（料理）
   - 農業の進め方のアドバイスをくれる。（農業）
   - 車のワイパーを立てておいた方がいいか教えてくれる。（車）
+  - 交通情報。（車）
+  - スノボ。（スポーツ）
 - Googleログイン機能
 - LINE連携
   - 決まった時間に通知してくれる。

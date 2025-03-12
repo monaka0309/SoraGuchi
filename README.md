@@ -31,6 +31,14 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - カテゴリー（id, AiContent_id, cheering(励まし), clothes(洋服), washing(洗濯), farming(農業)）
   - ユーザーが指定したカテゴリーについて相談できる。（送るメッセージの効率化。）
 
+#### 詳細
+- ログインユーザー
+  - 愚痴を発信し共有できる。
+  - LINEと連携し、通知をもらうことができる。
+- 未ログインユーザー
+  - 天気を確認できる。
+  - チャットに相談ができる。
+
 ### 今後追加したい機能
 - 天気APIの導入。
 - AIの導入。(AWS Bedrock)

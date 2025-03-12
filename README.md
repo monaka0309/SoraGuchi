@@ -13,6 +13,7 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - Django
 - PostgreSQL
 - Azure
+- AWS Bedrock
 
 ### 機能
 - ユーザー登録（id, name, email, password, prefecture, created_at, updated_at）

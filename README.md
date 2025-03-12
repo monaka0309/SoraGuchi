@@ -57,5 +57,8 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - LINE連携
   - 決まった時間に通知してくれる。
 
+### AzureとAWS Bedrockを選んだ理由
+- Azureに触れたことがなく、「面白そう」「触ってみたい」と思ったから。
+- Bedrockはサーバーレスで管理しやすいことに加えて、複数のモデルを利用できることによるカスタマイズ性が高いから。
 
 

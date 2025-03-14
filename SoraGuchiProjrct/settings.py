@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +23,15 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6iux9)dwhj7$@n6^-a7qvkfe3p8&q(jo+e=8wzc4!n1$s!7h92'
+#.envファイル読み込み
+env = environ.Env()
+env.read_env('.env')
+
+#.envファイルを参照
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -76,21 +82,8 @@ WSGI_APPLICATION = 'SoraGuchiProjrct.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
-    'default': {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "soraguchi", #ご自身が作成したデータベース名
-        "USER": "postgres", #ご自身が設定したユーザー名
-        "PASSWORD": "postgres", #ご自身が設定したパスワード
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
+    'default': env.db()
 }
 
 # Password validation

@@ -42,7 +42,7 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 ### 今後実装したい機能
 - 天気APIの導入。
 - AIの導入。(AWS Bedrock)
-  - 例：
+  - 例: 
   - 天気に合わせた洋服の提案。（洋服）
   - ドレスや水着を着る際に、何を羽織ったらいいか教えてくれる。（洋服）
   - 優しく元気づけてくれる。（励まし）

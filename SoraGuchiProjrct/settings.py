@@ -27,7 +27,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 env = environ.Env()
 env.read_env('.env')
 
-#.envファイルを参照
+#.envファイルを参照。
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!

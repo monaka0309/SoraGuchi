@@ -129,3 +129,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATICFILES_DIRS = [
 #     ("static_file", STATIC_DIR),
 # ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net",
+]

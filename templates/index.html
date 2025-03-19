@@ -13,34 +13,38 @@
         }
     </style>
 </head>
-<body class="bg-[#f5efe6] text-[#5a5146]">
-    <div class="max-w-4xl mx-auto px-6 py-10">
-        <!-- ヘッダー -->
-        <h1 class="text-4xl font-extrabold text-center text-[#6d5f4a] tracking-wide">
-            空への愚痴を共有しようか。
+<body class="bg-[#e0f7fa] text-[#263238]">
+    <header class="text-center py-10">
+        <h1 class="text-5xl font-extrabold text-[#00acc1] tracking-wide leading-tight">
+            空へ愚痴を共有しよう。
         </h1>
-        <h2 class="text-xl text-center text-[#8a7d6f] mt-3">
-            {{ page_title }}
-        </h2>
-
         <!-- 新規投稿ボタン -->
-        <div class="text-center mt-6">
+        <div class="mt-6">
             <a href="{% url 'SoraGuchiApp:post_insert' %}"
-                class="bg-gradient-to-r from-[#dcc5a4] to-[#bfa387] text-white px-6 py-3 rounded-full shadow-md 
-                       transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+               class="bg-gradient-to-r from-[#81d4fa] to-[#0288d1] text-white px-8 py-4 rounded-full shadow-md 
+                      transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
                 + 新規投稿
             </a>
+            <p class="mt-4 text-lg text-[#00796b]">
+                <a href="{% url 'SoraGuchiApp:index' %}" class="hover:text-[#004d40]">投稿一覧</a>
+            </p>
         </div>
+    </header>
+    
+    <div class="max-w-4xl mx-auto px-6 py-10">
+        <h2 class="text-2xl text-center text-[#004d40] mt-3">
+            {{ page_title }}
+        </h2>
 
         <!-- 投稿リスト -->
         <div class="mt-10 space-y-6">
             {% for post in posts %}
-            <div class="bg-[#f3e8db] p-6 rounded-lg shadow-md border border-[#e0d6c8] hover:shadow-lg transition duration-300">
-                <h3 class="text-2xl font-semibold text-[#6d5f4a]">{{ post.title }}</h3>
-                <p class="text-[#7c6f61] mt-2">{{ post.content }}</p>
+            <div class="bg-[#ffffff] p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300">
+                <h3 class="text-3xl font-semibold text-[#0288d1]">{{ post.title }}</h3>
+                <p class="text-[#00796b] mt-3">{{ post.content }}</p>
             </div>
             {% empty %}
-            <p class="text-center text-[#9a8f82] text-lg">まだ投稿がありません。</p>
+            <p class="text-center text-[#004d40] text-lg">まだ投稿がありません。</p>
             {% endfor %}
         </div>
     </div>

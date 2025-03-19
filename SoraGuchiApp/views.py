@@ -10,7 +10,7 @@ def index(request):
         "page_title": "投稿一覧",
         "posts": posts,
     }
-    return render(request, "index.html", params)
+    return render(request, "post/index.html", params)
 
 def post_insert(request):
     params = {
@@ -23,7 +23,7 @@ def post_insert(request):
         post = Posts(title=title, content=content)
         post.save()
         return redirect(to="/soraguchi")
-    return render(request, "insert.html", params)
+    return render(request, "post/insert.html", params)
 
 
 

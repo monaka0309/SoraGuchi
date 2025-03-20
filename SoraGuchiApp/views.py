@@ -5,7 +5,7 @@ from .models import Posts
 from . import forms
 
 def index(request):
-    posts = Posts.objects.all()
+    posts = Posts.objects.order_by("-created_at").all()
     params = {
         "page_title": "投稿一覧",
         "posts": posts,

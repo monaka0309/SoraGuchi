@@ -16,10 +16,21 @@ def post_insert(request):
     insert_form = forms.PostModelForm(request.POST or None)
     if insert_form.is_valid():
         insert_form.save()
-    return render(request, "post/insert.html", context={
-        "insert_form": insert_form
-    })
+    params = {
+        "page_title": "新規投稿",
+        "insert_form": insert_form,
+    }
+    return render(request, "post/insert.html", params)
 
-# def post_update(request, id):
-    
+def post_update(request, id):
+    post = Posts.objects.get(pk=id)
+    update_form = forms.PostUpdateModelForm(
+        request.POST or None,
+        instance=post
+        )
+    if update_form.is_valid():
+        update_form.save()
+    return render(request, "post/update_post.html", context={
+        "update_form": update_form,
+    })
 

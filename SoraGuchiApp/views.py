@@ -2,7 +2,7 @@ from django.shortcuts import render # type: ignore
 from django.shortcuts import redirect # type: ignore
 from django.http import HttpResponseRedirect # type: ignore
 from .models import Posts
-from .forms import PostForm
+from . import forms
 
 def index(request):
     posts = Posts.objects.all()
@@ -13,17 +13,13 @@ def index(request):
     return render(request, "post/index.html", params)
 
 def post_insert(request):
-    params = {
-        "page_title": "投稿入力フォーム",
-        "form": PostForm(),
-    }
-    if (request.method == "POST"):
-        title = request.POST["title"]
-        content = request.POST["content"]
-        post = Posts(title=title, content=content)
-        post.save()
-        return redirect(to="/soraguchi")
-    return render(request, "post/insert.html", params)
+    insert_form = forms.PostModelForm(request.POST or None)
+    if insert_form.is_valid():
+        insert_form.save()
+    return render(request, "post/insert.html", context={
+        "insert_form": insert_form
+    })
 
-
+# def post_update(request, id):
+    
 

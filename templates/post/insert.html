@@ -10,7 +10,7 @@
     <a href="{% url 'SoraGuchiApp:index' %}"><h3>投稿一覧</h3></a>
     <form action="{% url 'SoraGuchiApp:post_insert' %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ insert_form.as_p }}
         <button type="submit">送信</button>
 
 

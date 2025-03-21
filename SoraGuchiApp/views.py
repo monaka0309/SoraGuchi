@@ -47,3 +47,11 @@ def post_delete(request, id):
         return redirect("soraguchi:index")
     return render(request, "post/index.html")
 
+def register(request):
+    regist_form = forms.RegistForm(request.POST or None)
+    if regist_form.is_valid():
+        regist_form.save(commit=True)
+        return redirect("SoraGuchiApp:index")
+    return render(request, "user/register.html", context={
+        "regist_form": regist_form
+    })

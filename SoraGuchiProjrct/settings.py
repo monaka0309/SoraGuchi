@@ -134,3 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     "https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net",
 ]
+AUTH_USER_MODEL = "SoraGuchiApp.User"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

@@ -40,7 +40,7 @@ class User(AbstractBaseUser, PermissionError):
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     prefecure = models.CharField(max_length=50)
-    picture = models.FileField(null=True)
+    picture = models.FileField(null=True, upload_to="picture/")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

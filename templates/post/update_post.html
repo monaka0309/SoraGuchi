@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,5 +14,11 @@
         {{ update_form.as_p }}
         <button type="submit">更新</button>
     </form>
+    <form method="post" action="{% url 'SoraGuchiApp:post_delete' id=id %}" id="deletePostConfirm">
+        {% csrf_token %}
+        <button type="button" onclick="deletePost()">投稿を削除する</button>
+        <div id="saveResult"></div>
+    </form>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

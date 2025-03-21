@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>投稿更新ページ</h1>
+    <a href="{% url 'SoraGuchiApp:index' %}"><h3>投稿一覧へ</h3></a>
+    <form method="post">
+        {% csrf_token %}
+        {{ update_form.as_p }}
+        <button type="submit">更新</button>
+    </form>
+    <form method="post" action="{% url 'SoraGuchiApp:post_delete' id=id %}" id="deletePostConfirm">
+        {% csrf_token %}
+        <button type="button" onclick="deletePost()">投稿を削除する</button>
+        <div id="saveResult"></div>
+    </form>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

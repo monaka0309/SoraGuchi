@@ -1,29 +1,49 @@
-from django.shortcuts import render # type: ignore
-from django.shortcuts import redirect # type: ignore
+from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.http import HttpResponseRedirect # type: ignore
 from .models import Posts
-from .forms import PostForm
+from . import forms
 
 def index(request):
-    posts = Posts.objects.all()
+    posts = Posts.objects.order_by("-created_at").all()
     params = {
         "page_title": "投稿一覧",
         "posts": posts,
     }
-    return render(request, "index.html", params)
+    return render(request, "post/index.html", params)
 
 def post_insert(request):
-    params = {
-        "page_title": "投稿入力フォーム",
-        "form": PostForm(),
-    }
-    if (request.method == "POST"):
-        title = request.POST["title"]
-        content = request.POST["content"]
-        post = Posts(title=title, content=content)
-        post.save()
-        return redirect(to="/soraguchi")
-    return render(request, "insert.html", params)
+    insert_form = forms.PostModelForm(request.POST or None)
+    if insert_form.is_valid():
+        insert_form.save()
+        return redirect("soraguchi:index")
+    return render(request, "post/insert.html", context={
+        "insert_form": insert_form,
+    })
 
+def post_detail(request, id):
+    post = Posts.objects.get(pk=id)
+    return render(request, "post/detail_post.html", context={
+        "post": post
+    })
 
+def post_update(request, id):
+    post = Posts.objects.get(pk=id)
+    update_form = forms.PostUpdateModelForm(
+        request.POST or None,
+        instance=post
+        )
+    if update_form.is_valid():
+        update_form.save()
+        return redirect("soraguchi:index")
+    return render(request, "post/update_post.html", context={
+        "update_form": update_form,
+        "id": post.id
+    })
+
+def post_delete(request, id):
+    post = get_object_or_404(Posts, id=id)
+    if request.method == "POST":
+        post.delete()
+        return redirect("soraguchi:index")
+    return render(request, "post/index.html")
 

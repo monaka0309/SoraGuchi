@@ -14,6 +14,7 @@ def index(request):
     }
     return render(request, "post/index.html", params)
 
+@login_required
 def post_insert(request):
     insert_form = forms.PostModelForm(request.POST or None)
     if insert_form.is_valid():
@@ -29,6 +30,7 @@ def post_detail(request, id):
         "post": post
     })
 
+@login_required
 def post_update(request, id):
     post = Posts.objects.get(pk=id)
     update_form = forms.PostUpdateModelForm(
@@ -43,6 +45,7 @@ def post_update(request, id):
         "id": post.id
     })
 
+@login_required
 def post_delete(request, id):
     post = get_object_or_404(Posts, id=id)
     if request.method == "POST":

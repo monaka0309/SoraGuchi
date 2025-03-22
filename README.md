@@ -12,7 +12,9 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - Python3
 - Django
 - PostgreSQL
-- Azure
+- Azure App Service
+- Azure Database for PostgreSQL Flexible Server
+- tailwind CSS
 - AWS Bedrock
 
 ### 機能

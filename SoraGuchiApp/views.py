@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.http import HttpResponseRedirect # type: ignore
-from .models import Posts
+from .models import Posts, UserActivateToken
 from . import forms
+from django.contrib import messages # type: ignore
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash # type: ignore
+from django.contrib.auth.decorators import login_required # type: ignore
 
 def index(request):
     posts = Posts.objects.order_by("-created_at").all()
@@ -55,3 +58,40 @@ def register(request):
     return render(request, "user/register.html", context={
         "regist_form": regist_form
     })
+
+def activate_user(request, token):
+    activate_form = forms.UserActivateForm(request.POST or None)
+    if activate_form.is_valid():
+        # ユーザーの有効化
+        UserActivateToken.objects.activate_user_by_token(token)
+        messages.success(request, "ユーザーを有効化しました。")
+    activate_form.initial["token"] = token
+    return render(
+        request, "user/activate_user.html", context={
+            "activate_form": activate_form,
+        }
+    )
+
+def user_login(request):
+    login_form = forms.LoginForm(request.POST or None)
+    if login_form.is_valid():
+        email = login_form.cleaned_data["email"]
+        password = login_form.cleaned_data["password"]
+        user = authenticate(email=email, password=password)
+        if user:
+            login(request, user)
+            next_url = request.GET.get("next", "soraguchi:index")
+            return redirect(next_url)
+        else:
+            messages.warning(request, "ログインに失敗しました")
+    return render(
+        request, "user/user_login.html", context={
+            "login_form": login_form,
+        }
+    )
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect("soraguchi:index")
+

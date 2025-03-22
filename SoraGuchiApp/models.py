@@ -15,12 +15,6 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-class Posts(BaseModel):
-    title = models.CharField(max_length=50)
-    content = models.CharField(max_length=140)
-    class Meta:
-        db_table = "posts"
-
 class UserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
         if not email:
@@ -104,3 +98,10 @@ def publish_token(sender, instance, created, **kwargs):
     print(
         f"http://127.0.0.1:8000/soraguchi/activate_user/{user_activate_token.token}"
     )
+
+class Posts(BaseModel):
+    title = models.CharField(max_length=50)
+    content = models.CharField(max_length=140)
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    class Meta:
+        db_table = "posts"

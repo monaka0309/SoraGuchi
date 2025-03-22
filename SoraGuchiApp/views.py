@@ -18,7 +18,9 @@ def index(request):
 def post_insert(request):
     insert_form = forms.PostModelForm(request.POST or None)
     if insert_form.is_valid():
-        insert_form.save()
+        post = insert_form.save(commit=False)
+        post.user = request.user
+        post.save()
         return redirect("soraguchi:index")
     return render(request, "post/insert.html", context={
         "insert_form": insert_form,

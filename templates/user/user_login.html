@@ -1,5 +1,10 @@
 <h1>ログインページ</h1>
 
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message.message }}</p>
+    {% endfor %}
+{% endif %}
 <form method=POST>
     {% csrf_token %}
     {{ login_form.as_p }}

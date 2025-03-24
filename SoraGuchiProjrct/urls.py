@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin # type: ignore
 from django.urls import path, include # type: ignore
+from . import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('soraguchi/', include('SoraGuchiApp.urls', namespace="SoraGuchiApp")),
 ]
+handler404 = views.page_not_found

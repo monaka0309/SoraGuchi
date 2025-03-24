@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
-from django.http import HttpResponseRedirect # type: ignore
+from django.http import HttpResponseRedirect, Http404 # type: ignore
 from .models import User, Posts, UserActivateToken
 from . import forms
 from django.contrib import messages # type: ignore
@@ -30,7 +30,8 @@ def post_insert(request):
 def post_detail(request, id):
     post = Posts.objects.get(pk=id)
     return render(request, "post/detail_post.html", context={
-        "post": post
+        "post": post,
+        "user_id": request.user.id,
     })
 
 @login_required
@@ -40,6 +41,8 @@ def post_update(request, id):
         request.POST or None,
         instance=post
         )
+    if post.user.id != request.user.id:
+        raise Http404
     if update_form.is_valid():
         update_form.save()
         return redirect("soraguchi:post_detail", post.id)
@@ -48,9 +51,12 @@ def post_update(request, id):
         "id": post.id
     })
 
+
 @login_required
 def post_delete(request, id):
     post = get_object_or_404(Posts, id=id)
+    if post.user.id != request.user.id:
+        raise Http404
     if request.method == "POST":
         post.delete()
         return redirect("soraguchi:index")
@@ -129,3 +135,4 @@ def user_update(request, id):
     return render(request, "user/user_update.html", context={
         "user_update_form": user_update_form,
     })
+

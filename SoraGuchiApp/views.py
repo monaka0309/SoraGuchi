@@ -129,3 +129,4 @@ def user_update(request, id):
     return render(request, "user/user_update.html", context={
         "user_update_form": user_update_form,
     })
+

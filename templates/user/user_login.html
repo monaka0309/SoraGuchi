@@ -1,3 +1,5 @@
+{% extends 'pages/base.html' %}
+{% block content %}
 <h1>ログインページ</h1>
 
 {% if messages %}
@@ -11,3 +13,4 @@
     <input type="submit" value="ログイン">
 </form>
 <a href="{% url 'soraguchi:register' %}">新規登録はこちら</a>
+{% endblock %}

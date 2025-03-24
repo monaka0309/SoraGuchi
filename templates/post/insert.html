@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'pages/base.html' %}
+{% block content %}
     <h1>{{page_title}}</h1>
     <a href="{% url 'SoraGuchiApp:index' %}"><h3>投稿一覧</h3></a>
     <h1>新規投稿</h1>
@@ -13,8 +7,5 @@
         {% csrf_token %}
         {{ insert_form.as_p }}
         <button type="submit">送信</button>
-
-
     </form>
-</body>
-</html>
+{% endblock %}

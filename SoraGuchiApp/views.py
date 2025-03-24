@@ -7,6 +7,9 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required # type: ignore
 from django.core.exceptions import PermissionDenied # type: ignore
 
+def home(request):
+    return render(request, "pages/home.html")
+
 def index(request):
     posts = Posts.objects.order_by("-created_at").all()
     params = {

@@ -31,7 +31,7 @@ class RegistForm(forms.ModelForm):
         labels = {
             "username": "名前",
             "email": "メールアドレス",
-            "password": "パスワード",
+            "password": "パスワード（8文字以上で数字、英字の大文字小文字を含んでください。）",
         }
         widgets = { "password": forms.PasswordInput() }
     

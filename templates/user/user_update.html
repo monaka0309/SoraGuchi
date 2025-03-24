@@ -1,0 +1,16 @@
+
+
+<h1>ユーザー更新画面</h1>
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message.message}}</p>
+    {% endfor%}
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ user_update_form.as_p }}
+    <input type="submit" value="更新">
+</form>
+
+

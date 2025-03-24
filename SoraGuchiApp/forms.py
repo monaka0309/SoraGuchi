@@ -9,7 +9,7 @@ User = get_user_model()
 class PostModelForm(forms.ModelForm):
     class Meta:
         model = Posts
-        fields = "__all__"
+        fields = ["title", "content"]
         labels = {
             "title": "タイトル",
             "content": "内容",
@@ -63,3 +63,15 @@ class UserActivateForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.EmailField(label="メールアドレス")
     password = forms.CharField(label="パスワード", widget=forms.PasswordInput())
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["username", "email", "prefecture"]
+        labels = {
+            "username": "名前",
+            "email": "メールアドレス",
+            "prefecture": "都道府県",
+        }
+    prefecture = forms.ChoiceField(choices=User.PREFECTURE_CHOICES)
+    

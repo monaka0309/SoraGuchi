@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.http import HttpResponseRedirect # type: ignore
-from .models import Posts, UserActivateToken
+from .models import User, Posts, UserActivateToken
 from . import forms
 from django.contrib import messages # type: ignore
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
+from django.core.exceptions import PermissionDenied # type: ignore
 
 def index(request):
     posts = Posts.objects.order_by("-created_at").all()
@@ -41,7 +42,7 @@ def post_update(request, id):
         )
     if update_form.is_valid():
         update_form.save()
-        return redirect("soraguchi:index")
+        return redirect("soraguchi:post_detail", post.id)
     return render(request, "post/update_post.html", context={
         "update_form": update_form,
         "id": post.id
@@ -100,3 +101,31 @@ def user_logout(request):
     logout(request)
     return redirect("soraguchi:index")
 
+@login_required
+def user_detail(request, id):
+    user = User.objects.get(pk=id)
+    return render(request, "user/user_detail.html", context={
+        "user": user
+    })
+
+@login_required
+def user_update(request, id):
+    user = get_object_or_404(User, pk=id)
+    if user != request.user:
+        raise PermissionDenied # ユーザーにアクセス権がない。
+    user_update_form = forms.UserUpdateForm(
+        request.POST or None,
+        instance=user
+        )
+
+    if request.method == "POST":
+        if user_update_form.is_valid():
+            user_update_form.save()
+            messages.success(request, '更新完了しました')
+            return redirect("soraguchi:user_detail", user.id)
+        else:
+            messages.warning(request, '更新に失敗しました')
+    
+    return render(request, "user/user_update.html", context={
+        "user_update_form": user_update_form,
+    })

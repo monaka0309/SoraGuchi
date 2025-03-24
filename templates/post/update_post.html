@@ -1,7 +1,6 @@
 {% extends 'pages/base.html' %}
 {% block content %}
     <h1>投稿更新ページ</h1>
-    <a href="{% url 'SoraGuchiApp:index' %}"><h3>投稿一覧へ</h3></a>
     <form method="post">
         {% csrf_token %}
         {{ update_form.as_p }}

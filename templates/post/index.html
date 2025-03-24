@@ -14,8 +14,7 @@
         }
     </style>
 </head>
-<body class="bg-[#e0f7fa] text-[#263238] pt-20">
-
+<body class="bg-[url('/static/img/sky_00006.jpg')] bg-cover bg-center min-h-screen text-[#263238] pt-20">
     <!-- ヘッダー -->
     <header class="fixed top-0 left-0 w-full bg-white shadow-md py-4 z-10">
         <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
@@ -81,18 +80,22 @@
     </header>
 
     <div class="max-w-4xl mx-auto px-6 py-10">
-        <h2 class="text-2xl text-center text-[#004d40] mt-3">
+        <p class="text-3xl text-center text-white mt-3">
             投稿一覧
-        </h2>
+        </p>
 
         <!-- 投稿リスト -->
         <div class="mt-10 space-y-6">
             {% for post in posts %}
-            <div class="bg-[#ffffff] p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300">
-                <h3 class="text-3xl font-semibold text-[#0288d1] break-words">{{ post.title }}
+            <div class="bg-[#ffffff] p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300" onclick="window.location.href='/soraguchi/post_detail/{{post.id}}'">
+                <div class="flex items-center">
+                    <img src="{% static 'img/user.png' %}" alt="ロゴ" class="w-12 h-12 rounded-xl">
+                    <span class="text-stone-600 pl-3">{{ post.user.username }}</span>
+                </div>
+                <p class="text-3xl font-semibold text-[#0288d1] break-words mt-3">{{ post.title }}
                     <span class="text-sm text-gray-400">{{ post.created_at|date:"n/j H:i" }}</span>
                     <span><a href="{% url 'soraguchi:post_detail' id=post.id %}" class="text-sm">詳細</a></span>
-                </h3>
+                </p>
                 <p class="text-[#00796b] mt-3 break-words text-lg">{{ post.content }}</p>
                 {% if user.prefecture %}
                     <p class="text-stone-400 mt-1">所在地：{{ user.prefecture }}</p>

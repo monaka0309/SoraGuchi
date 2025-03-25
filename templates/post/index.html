@@ -1,0 +1,29 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="max-w-4xl mx-auto px-6 py-10">
+        <p class="text-4xl text-center text-white">投稿一覧</p>
+        <!-- 投稿リスト -->
+        <div class="mt-10 space-y-6">
+            {% for post in posts %}
+            <div class="bg-[#ffffff] p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300" onclick="window.location.href='/soraguchi/post_detail/{{post.id}}'">
+                <div class="flex items-center">
+                    <img src="{% static 'img/user.png' %}" alt="ロゴ" class="w-12 h-12 rounded-xl">
+                    <span class="text-stone-600 ml-3">{{ post.user.username }}</span>
+                    <span class="text-sm text-gray-400 ml-5">{{ post.created_at|date:"n/j H:i" }}</span>
+                </div>
+                <p class="text-3xl font-semibold text-[#0288d1] break-words mt-3">{{ post.title }}</p>
+                <p class="text-[#00796b] mt-3 break-words text-lg">{{ post.content }}</p>
+                {% if post.user.prefecture == None %}
+                    <p class="text-stone-400 mt-1">所在地：未設定</p>
+                {% else %}
+                    <p class="text-stone-400 mt-1">所在地：{{ post.user.prefecture }}</p>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p class="text-center text-[#004d40] text-lg">まだ投稿がありません。</p>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

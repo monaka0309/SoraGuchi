@@ -1,0 +1,16 @@
+
+{% extends 'pages/base.html' %}
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div>{{ message.message }}: {{message.tags}}</div>
+    {% endfor %}
+{% endif %}
+<h1>ユーザー有効化ページ</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ activate_form.as_p }}
+    <input type="submit" value="ユーザーを有効化する">
+</form>
+{% endblock %}

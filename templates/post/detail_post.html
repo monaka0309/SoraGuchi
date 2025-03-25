@@ -1,0 +1,32 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+{% load static  %}
+<h1 class="text-4xl text-center text-white mt-10">投稿詳細</h1>
+
+<div class="max-w-4xl mx-auto px-6 py-10">
+    <!-- 投稿詳細 -->
+    <div class="bg-white p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300">
+        <div class="flex items-center">
+            <img src="{% static 'img/user.png' %}" alt="ユーザーアイコン" class="w-12 h-12 rounded-xl">
+            <span class="text-stone-600 pl-3">{{ post.user.username }}</span>
+            {% if user.is_authenticated and post.user.id == user_id %}
+                <span class="ml-auto">
+                    <a href="{% url 'soraguchi:post_update' post.id %}"
+                        class="px-6 py-2 bg-[#00acc1] text-white rounded-md hover:opacity-80 transition">
+                        編集
+                    </a>
+                </span>
+            {% endif %}
+        </div>
+        <p class="text-3xl font-semibold text-[#0288d1] break-words mt-3">{{ post.title }}</p>
+        <p class="text-[#00796b] break-words text-lg">{{ post.content }}</p>
+        {% if post.user.prefecture %}
+            <p class="text-stone-400 mt-1">所在地：{{ post.user.prefecture }}</p>
+        {% else %}
+            <p class="text-stone-400 mt-1">所在地：未設定</p>
+        {% endif %}
+        <p class="text-sm text-gray-400 mt-3">{{ post.created_at|date:"n/j H:i" }}</p>
+    </div>
+</div>
+
+{% endblock %}

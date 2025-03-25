@@ -1,93 +1,24 @@
+{% extends 'pages/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天気の愚痴掲示板</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
-</head>
-<body class="bg-[#e0f7fa] text-[#263238] pt-20">
-
-    <!-- ヘッダー -->
-    <header class="fixed top-0 left-0 w-full bg-white shadow-md py-4 z-10">
-        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            
-            <div class="flex items-center space-x-3">
-                <img src="{% static 'img/icon.png' %}" alt="ロゴ" class="w-12 h-12 rounded-xl">
-                <span class="text-2xl font-bold text-[#00acc1]">SoraGuchi</span>
-            </div>
-
-            <nav class="hidden md:flex space-x-8 text-lg">
-                <a href="{% url 'SoraGuchiApp:index' %}" class="text-[#263238] hover:text-[#00acc1] transition">ホーム</a>
-                <a href="{% url 'SoraGuchiApp:index' %}" class="text-[#263238] hover:text-[#00acc1] transition">投稿一覧</a>
-                <a href="{% url 'SoraGuchiApp:post_insert' %}" class="text-[#263238] hover:text-[#00acc1] transition">新規投稿</a>
-            </nav>
-
-            <div class="space-x-4 hidden md:flex">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'SoraGuchiApp:user_logout' %}" class="px-5 py-2 text-[#00acc1] border border-[#00acc1] rounded-md transition hover:bg-[#00acc1] hover:text-white">
-                        ログアウト
-                    </a>
-                {% else %}
-                    <a href="{% url 'SoraGuchiApp:user_login' %}" class="px-5 py-2 text-[#00acc1] border border-[#00acc1] rounded-md transition hover:bg-[#00acc1] hover:text-white">
-                        ログイン
-                    </a>
-                    <a href="{% url 'SoraGuchiApp:register' %}" class="px-5 py-2 bg-[#00acc1] text-white rounded-md transition hover:opacity-80">
-                        新規登録
-                    </a>
-                {% endif %}
-            </div>
-
-            <!-- モバイル用メニュー -->
-            <button id="menu-btn" class="md:hidden focus:outline-none">
-                <svg class="w-8 h-8 text-[#00acc1]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- モバイルメニュー（開閉） -->
-        <nav id="mobile-menu" class="md:hidden hidden flex flex-col items-center space-y-4 mt-4 bg-white shadow-lg py-4">
-            <a href="{% url 'SoraGuchiApp:index' %}" class="text-[#263238] hover:text-[#00acc1] transition">ホーム</a>
-            <a href="{% url 'SoraGuchiApp:index' %}" class="text-[#263238] hover:text-[#00acc1] transition">投稿一覧</a>
-            <a href="{% url 'SoraGuchiApp:post_insert' %}" class="text-[#263238] hover:text-[#00acc1] transition">新規投稿</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'SoraGuchiApp:user_logout' %}" class="px-5 py-2 text-[#00acc1] border border-[#00acc1] rounded-md transition hover:bg-[#00acc1] hover:text-white">
-                    ログアウト
-                </a>
-            {% else %}
-                <a href="{% url 'SoraGuchiApp:user_login' %}" class="px-5 py-2 text-[#00acc1] border border-[#00acc1] rounded-md transition hover:bg-[#00acc1] hover:text-white">
-                    ログイン
-                </a>
-                <a href="{% url 'SoraGuchiApp:register' %}" class="px-5 py-2 bg-[#00acc1] text-white rounded-md transition hover:opacity-80">
-                    新規登録
-                </a>
-            {% endif %}
-        </nav>
-    </header>
-
+{% block content %}
     <div class="max-w-4xl mx-auto px-6 py-10">
-        <h2 class="text-2xl text-center text-[#004d40] mt-3">
-            投稿一覧
-        </h2>
-
+        <p class="text-4xl text-center text-white">投稿一覧</p>
         <!-- 投稿リスト -->
         <div class="mt-10 space-y-6">
             {% for post in posts %}
-            <div class="bg-[#ffffff] p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300">
-                <h3 class="text-3xl font-semibold text-[#0288d1] break-words">{{ post.title }}
-                    <span class="text-sm text-gray-400">{{ post.created_at|date:"n/j H:i" }}</span>
-                    <span><a href="{% url 'soraguchi:post_detail' id=post.id %}" class="text-sm">詳細</a></span>
-                </h3>
-                <p class="text-[#00796b] mt-3 break-words">{{ post.content }}</p>
+            <div class="bg-[#ffffff] p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300" onclick="window.location.href='/soraguchi/post_detail/{{post.id}}'">
+                <div class="flex items-center">
+                    <img src="{% static 'img/user.png' %}" alt="ロゴ" class="w-12 h-12 rounded-xl">
+                    <span class="text-stone-600 ml-3">{{ post.user.username }}</span>
+                    <span class="text-sm text-gray-400 ml-5">{{ post.created_at|date:"n/j H:i" }}</span>
+                </div>
+                <p class="text-3xl font-semibold text-[#0288d1] break-words mt-3">{{ post.title }}</p>
+                <p class="text-[#00796b] mt-3 break-words text-lg">{{ post.content }}</p>
+                {% if post.user.prefecture == None %}
+                    <p class="text-stone-400 mt-1">所在地：未設定</p>
+                {% else %}
+                    <p class="text-stone-400 mt-1">所在地：{{ post.user.prefecture }}</p>
+                {% endif %}
             </div>
             {% empty %}
             <p class="text-center text-[#004d40] text-lg">まだ投稿がありません。</p>
@@ -95,11 +26,4 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('menu-btn').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-    </script>
-
-</body>
-</html>
+{% endblock %}

@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
-from django.http import HttpResponseRedirect # type: ignore
-from .models import Posts, UserActivateToken
+from django.http import HttpResponseRedirect, Http404 # type: ignore
+from .models import User, Posts, UserActivateToken
 from . import forms
 from django.contrib import messages # type: ignore
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
+from django.core.exceptions import PermissionDenied # type: ignore
+
+def home(request):
+    return render(request, "pages/home.html")
 
 def index(request):
     posts = Posts.objects.order_by("-created_at").all()
@@ -29,7 +33,8 @@ def post_insert(request):
 def post_detail(request, id):
     post = Posts.objects.get(pk=id)
     return render(request, "post/detail_post.html", context={
-        "post": post
+        "post": post,
+        "user_id": request.user.id,
     })
 
 @login_required
@@ -39,21 +44,28 @@ def post_update(request, id):
         request.POST or None,
         instance=post
         )
+    if post.user.id != request.user.id:
+        raise Http404
     if update_form.is_valid():
         update_form.save()
-        return redirect("soraguchi:index")
+        return redirect("soraguchi:post_detail", post.id)
     return render(request, "post/update_post.html", context={
         "update_form": update_form,
-        "id": post.id
+        "id": post.id,
+        "post": post,
     })
+
 
 @login_required
 def post_delete(request, id):
     post = get_object_or_404(Posts, id=id)
+    if post.user.id != request.user.id:
+        raise Http404
     if request.method == "POST":
         post.delete()
         return redirect("soraguchi:index")
     return render(request, "post/index.html")
+
 
 def register(request):
     regist_form = forms.RegistForm(request.POST or None)
@@ -99,4 +111,29 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("soraguchi:index")
+
+@login_required
+def user_detail(request, id):
+    user = User.objects.get(pk=id)
+    return render(request, "user/user_detail.html", context={
+        "user": user
+    })
+
+@login_required
+def user_update(request, id):
+    user = get_object_or_404(User, pk=id)
+    if user != request.user:
+        raise PermissionDenied # ユーザーにアクセス権がない。
+    user_update_form = forms.UserUpdateForm(
+        request.POST or None,
+        instance=user
+        )
+
+    if request.method == "POST":
+        if user_update_form.is_valid():
+            user_update_form.save()
+            return redirect("soraguchi:user_detail", user.id)
+    return render(request, "user/user_update.html", context={
+        "user_update_form": user_update_form,
+    })
 

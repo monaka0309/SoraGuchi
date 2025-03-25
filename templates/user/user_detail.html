@@ -1,21 +1,31 @@
 {% extends 'pages/base.html' %}
 {% block content %}
-<h1>マイページ</h1>
+{% load static  %}
+<h1 class="text-4xl text-center text-white mt-10">マイページ</h1>
 
-<p><a href="{% url 'soraguchi:user_update' user.id %}">編集</a></p>
-{% if messages %}
-    {% for message in messages %}
-        <p>{{ message.message}}: {{ message.tags }}</p>
-    {% endfor%}
-{% endif %}
-
-<p>{{ user.username }}</p>
-<p>{{ user.email }}</p>
-{% if user.prefecture %}
-    <p>{{ user.prefecture}}</p>
-{% else %}
-    <p>都道府県は未設定です。編集ボタンから設定できます。</p>
-{% endif %}
-
+<div class="max-w-4xl mx-auto px-6 py-10 mt-10">
+    <div class="bg-white p-6 rounded-lg shadow-lg border border-[#b2ebf2] hover:shadow-2xl transition duration-300">
+        <div class="flex items-center">
+            <img src="{% static 'img/user.png' %}" alt="ユーザーアイコン" class="w-16 h-16 rounded-xl">
+            <span class="text-stone-600 pl-3 text-2xl font-semibold">{{ user.username }}</span>
+            {% if user.is_authenticated %}
+                <span class="ml-auto">
+                    <a href="{% url 'soraguchi:user_update' user.id %}"
+                        class="px-6 py-2 bg-[#00acc1] text-white rounded-md hover:opacity-80 transition">
+                        編集
+                    </a>
+                </span>
+            {% endif %}
+        </div>
+        
+        <p class="text-lg text-[#0288d1] mt-4">メールアドレス: {{ user.email }}</p>
+        
+        {% if user.prefecture %}
+            <p class="text-[#00796b] text-lg mt-1">所在地: {{ user.prefecture }}</p>
+        {% else %}
+            <p class="text-[#00796b] text-lg mt-1">所在地: 未設定</p>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

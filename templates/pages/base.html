@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>天気の愚痴掲示板</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Google Fonts */
@@ -14,13 +15,12 @@
         }
     </style>
 </head>
-<body class="bg-[#e0f7fa] text-[#263238] pt-20">
-
+<body class="bg-[url('/static/img/sky_00006.jpg')] bg-cover bg-center min-h-screen text-[#263238] pt-20">
     <!-- ヘッダー -->
     <header class="fixed top-0 left-0 w-full bg-white shadow-md py-4 z-10">
         <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
             
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3" onclick="window.location.href='/soraguchi'">
                 <img src="{% static 'img/icon.png' %}" alt="ロゴ" class="w-12 h-12 rounded-xl">
                 <span class="text-2xl font-bold text-[#00acc1]">SoraGuchi</span>
             </div>
@@ -80,10 +80,10 @@
         </nav>
     </header>
 
-    <div>
-        {% block content %}
-        {% endblock %}
-    </div>
+    
+    {% block content %}
+    {% endblock %}
+        
 
     <script>
         document.getElementById('menu-btn').addEventListener('click', function() {

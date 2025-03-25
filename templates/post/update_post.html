@@ -1,15 +1,26 @@
 {% extends 'pages/base.html' %}
+
 {% block content %}
-    <h1>投稿更新ページ</h1>
-    <form method="post">
+{% load static %}
+<p class="text-4xl text-center text-white mt-10">投稿更新</p>
+<div class="max-w-2xl mx-auto px-6 py-10 bg-white shadow-lg rounded-lg border border-[#b2ebf2] mt-10">
+    <form action="{% url 'SoraGuchiApp:post_update' id=post.id %}" method="post" class="mt-6 space-y-4">
         {% csrf_token %}
         {{ update_form.as_p }}
-        <button type="submit">更新</button>
+        <button type="submit" class="w-full bg-[#00acc1] text-white py-2 rounded-md text-lg font-semibold hover:opacity-80 transition">
+            更新
+        </button>
     </form>
-    <form method="post" action="{% url 'SoraGuchiApp:post_delete' id=id %}" id="deletePostConfirm">
+
+    <form method="post" action="{% url 'SoraGuchiApp:post_delete' id=id %}" id="deletePostConfirm" class="mt-6">
         {% csrf_token %}
-        <button type="button" onclick="deletePost()">投稿を削除する</button>
+        <button type="button" onclick="deletePost()" class="w-full bg-[#d32f2f] text-white py-2 rounded-md text-lg font-semibold hover:opacity-80 transition">
+            投稿を削除する
+        </button>
         <div id="saveResult"></div>
     </form>
-    <script src="{% static 'js/script.js' %}"></script>
+</div>
+
+<script src="{% static 'js/script.js' %}"></script>
+
 {% endblock %}

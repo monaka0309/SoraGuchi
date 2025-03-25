@@ -14,16 +14,28 @@ class PostModelForm(forms.ModelForm):
             "title": "タイトル",
             "content": "内容",
         }
+        widgets = {
+            'title': forms.TextInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
+            'content': forms.Textarea(attrs={'class': 'form-textarea w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]'}),
+        }
 
 class PostUpdateModelForm(forms.ModelForm):
     class Meta:
         model = Posts
         fields = ["title", "content"]
+        labels = {
+            "title": "タイトル",
+            "content": "内容",
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
+            'content': forms.Textarea(attrs={'class': 'form-textarea w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]'}),
+        }
 
 class RegistForm(forms.ModelForm):
     confirm_password = forms.CharField(
         label="パスワード再入力",
-        widget = forms.PasswordInput()
+        widget = forms.PasswordInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
     )
     class Meta():
         model = User
@@ -33,7 +45,11 @@ class RegistForm(forms.ModelForm):
             "email": "メールアドレス",
             "password": "パスワード（8文字以上で数字、英字の大文字小文字を含んでください。）",
         }
-        widgets = { "password": forms.PasswordInput() }
+        widgets = {
+            'username': forms.TextInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
+            'email': forms.TextInput(attrs={'class': 'w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]'}),
+            'password': forms.PasswordInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
+        }
     
     # バリデーションチェック
     def clean(self):
@@ -61,17 +77,31 @@ class UserActivateForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label="メールアドレス")
-    password = forms.CharField(label="パスワード", widget=forms.PasswordInput())
+    email = forms.EmailField(
+        label="メールアドレス",
+        widget=forms.EmailInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"})
+    )
+    password = forms.CharField(
+        label="パスワード",
+        widget=forms.PasswordInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"})
+    )
+
 
 class UserUpdateForm(forms.ModelForm):
+    prefecture = forms.ChoiceField(
+        choices=User.PREFECTURE_CHOICES,
+        label="都道府県",
+        widget=forms.Select(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
+        )
     class Meta:
         model = User
         fields = ["username", "email", "prefecture"]
         labels = {
             "username": "名前",
             "email": "メールアドレス",
-            "prefecture": "都道府県",
         }
-    prefecture = forms.ChoiceField(choices=User.PREFECTURE_CHOICES)
+        widgets = {
+            'username': forms.TextInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
+            'email': forms.TextInput(attrs={'class': 'w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]'}),
+        }
     

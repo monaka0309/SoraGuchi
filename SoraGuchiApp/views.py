@@ -51,7 +51,8 @@ def post_update(request, id):
         return redirect("soraguchi:post_detail", post.id)
     return render(request, "post/update_post.html", context={
         "update_form": update_form,
-        "id": post.id
+        "id": post.id,
+        "post": post,
     })
 
 
@@ -64,6 +65,7 @@ def post_delete(request, id):
         post.delete()
         return redirect("soraguchi:index")
     return render(request, "post/index.html")
+
 
 def register(request):
     regist_form = forms.RegistForm(request.POST or None)
@@ -130,11 +132,7 @@ def user_update(request, id):
     if request.method == "POST":
         if user_update_form.is_valid():
             user_update_form.save()
-            messages.success(request, '更新完了しました')
             return redirect("soraguchi:user_detail", user.id)
-        else:
-            messages.warning(request, '更新に失敗しました')
-    
     return render(request, "user/user_update.html", context={
         "user_update_form": user_update_form,
     })

@@ -1,4 +1,3 @@
-archspec @ file:///croot/archspec_1709217642129/work
 bcrypt==4.3.0
 boltons @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/boltons_1699240838368/work
 charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work

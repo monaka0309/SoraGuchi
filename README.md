@@ -12,11 +12,13 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - Python3
 - Django
 - PostgreSQL
-- Azure
+- Azure App Service
+- Azure Database for PostgreSQL Flexible Server
+- tailwind CSS
 - AWS Bedrock
 
 ### 機能
-- ユーザー登録（id, name, email, password, prefecture, created_at, updated_at）
+- ユーザー登録（id, name, email, password, prefecture, picture(アイコン), created_at, updated_at）
   - ログイン
 - 投稿（id, title, content, user_id, created_at, updated_at）
   - 新規投稿

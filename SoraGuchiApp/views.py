@@ -68,6 +68,7 @@ def post_delete(request, id):
 
 
 def register(request):
+    print(request.POST)
     regist_form = forms.RegistForm(request.POST or None)
     if regist_form.is_valid():
         regist_form.save(commit=True)

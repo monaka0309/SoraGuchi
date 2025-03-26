@@ -19,7 +19,7 @@
             {% endif %}
         </div>
         <p class="text-3xl font-semibold text-[#0288d1] break-words mt-3">{{ post.title }}</p>
-        <p class="text-[#00796b] break-words text-lg">{{ post.content }}</p>
+        <pre class="text-[#00796b] text-lg whitespace-pre-wrap break-words">{{ post.content }}</pre>
         {% if post.user.prefecture %}
             <p class="text-stone-400 mt-1">所在地：{{ post.user.prefecture }}</p>
         {% else %}

@@ -3,7 +3,6 @@ django-debug-toolbar==5.0.1
 django-environ==0.12.0
 jsonpointer==2.1
 psycopg2==2.9.10
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
 PySocks @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/pysocks_1699237568675/work
 python-dateutil==2.9.0.post0
 setuptools==75.1.0

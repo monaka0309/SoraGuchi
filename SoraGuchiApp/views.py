@@ -115,6 +115,8 @@ def user_logout(request):
 @login_required
 def user_detail(request, id):
     user = User.objects.get(pk=id)
+    if user != request.user:
+        raise PermissionDenied # ユーザーにアクセス権がない。
     return render(request, "user/user_detail.html", context={
         "user": user
     })

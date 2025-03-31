@@ -1,0 +1,30 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+{% load static %}
+
+<div>
+    <h1>天気について相談してみよう！</h1>
+    {% if not user.is_authenticated %}
+        <p>ログインすれば利用できます。</p>
+    {% endif %}
+    <p>1日3回まで利用できます。</p>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="ask">天気について相談を書いてください。</label><br>
+        {{ aiForm.as_p }}
+        <button type="submit">送信</button>
+    </form>
+
+
+    <h2>結果</h2>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    {% if response %}
+        <p>{{ response }}</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}
+    

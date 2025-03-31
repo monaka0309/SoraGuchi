@@ -2,7 +2,7 @@ from django import forms # type: ignore
 from django.contrib.auth import get_user_model # type: ignore
 from django.contrib.auth.password_validation import validate_password # type: ignore
 from django.core.exceptions import ValidationError # type: ignore
-from .models import Posts
+from .models import Posts, Ai_conversations
 
 User = get_user_model()
 
@@ -104,4 +104,9 @@ class UserUpdateForm(forms.ModelForm):
             'username': forms.TextInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
             'email': forms.TextInput(attrs={'class': 'w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]'}),
         }
-    
+
+class AiModelForm(forms.ModelForm):
+    class Meta:
+        model = Ai_conversations
+        fields = ["content"]
+        labels = {"content": "相談"}

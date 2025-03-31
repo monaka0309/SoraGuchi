@@ -1,0 +1,18 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+{% load static %}
+
+<div>
+    <h1>天気について相談してみよう！</h1>
+    <h2>結果</h2>
+    <p>{{aiForm}}</p>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% end %}
+    {% if response %}
+        <p>{{ response }}</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+    

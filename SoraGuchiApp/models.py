@@ -158,3 +158,9 @@ class Posts(BaseModel):
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     class Meta:
         db_table = "posts"
+
+class Ai_conversations(BaseModel):
+    content = models.TextField()
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'ai_conversations'

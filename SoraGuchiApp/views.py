@@ -1,14 +1,18 @@
-from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
-from django.http import HttpResponseRedirect, Http404 # type: ignore
+from django.shortcuts import render, redirect, get_object_or_404  # type: ignore
+from django.http import HttpResponseRedirect, Http404, JsonResponse  # type: ignore
 from .models import User, Posts, UserActivateToken
 from . import forms
-from django.contrib import messages # type: ignore
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash # type: ignore
-from django.contrib.auth.decorators import login_required # type: ignore
-from django.core.exceptions import PermissionDenied # type: ignore
+from django.contrib import messages  # type: ignore
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash  # type: ignore
+from django.contrib.auth.decorators import login_required  # type: ignore
+from django.core.exceptions import PermissionDenied  # type: ignore
+import boto3  # type: ignore
+import json, os
+
 
 def home(request):
     return render(request, "pages/home.html")
+
 
 def index(request):
     posts = Posts.objects.order_by("-created_at").all()
@@ -17,6 +21,7 @@ def index(request):
         "posts": posts,
     }
     return render(request, "post/index.html", params)
+
 
 @login_required
 def post_insert(request):
@@ -30,6 +35,7 @@ def post_insert(request):
         "insert_form": insert_form,
     })
 
+
 def post_detail(request, id):
     post = Posts.objects.get(pk=id)
     return render(request, "post/detail_post.html", context={
@@ -37,13 +43,14 @@ def post_detail(request, id):
         "user_id": request.user.id,
     })
 
+
 @login_required
 def post_update(request, id):
     post = Posts.objects.get(pk=id)
     update_form = forms.PostUpdateModelForm(
         request.POST or None,
         instance=post
-        )
+    )
     if post.user.id != request.user.id:
         raise Http404
     if update_form.is_valid():
@@ -76,6 +83,7 @@ def register(request):
         "regist_form": regist_form
     })
 
+
 def activate_user(request, token):
     activate_form = forms.UserActivateForm(request.POST or None)
     if activate_form.is_valid():
@@ -88,6 +96,7 @@ def activate_user(request, token):
             "activate_form": activate_form,
         }
     )
+
 
 def user_login(request):
     login_form = forms.LoginForm(request.POST or None)
@@ -107,29 +116,32 @@ def user_login(request):
         }
     )
 
+
 @login_required
 def user_logout(request):
     logout(request)
     return redirect("soraguchi:index")
 
+
 @login_required
 def user_detail(request, id):
     user = User.objects.get(pk=id)
     if user != request.user:
-        raise PermissionDenied # ユーザーにアクセス権がない。
+        raise PermissionDenied  # ユーザーにアクセス権がない。
     return render(request, "user/user_detail.html", context={
         "user": user
     })
+
 
 @login_required
 def user_update(request, id):
     user = get_object_or_404(User, pk=id)
     if user != request.user:
-        raise PermissionDenied # ユーザーにアクセス権がない。
+        raise PermissionDenied  # ユーザーにアクセス権がない。
     user_update_form = forms.UserUpdateForm(
         request.POST or None,
         instance=user
-        )
+    )
 
     if request.method == "POST":
         if user_update_form.is_valid():
@@ -138,4 +150,60 @@ def user_update(request, id):
     return render(request, "user/user_update.html", context={
         "user_update_form": user_update_form,
     })
+
+
+def ask(model_id, body):
+    bedrock = boto3.client(
+        service_name='bedrock-runtime',
+        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+        region_name=os.getenv('AWS_REGION'),
+        )
+
+    accept = "application/json"
+    content_type = "application/json"
+
+    response = bedrock.invoke_model(
+        body=body, modelId=model_id, accept=accept, contentType=content_type
+    )
+    response_body = json.loads(response.get("body").read())
+    return response_body
+
+@login_required
+def chat_view(request):
+    try:
+        model_id = 'amazon.titan-text-premier-v1:0'
+
+        prompt = """日本で2番目に高い山は？ """
+
+        body = json.dumps({
+            "inputText": prompt,
+            "textGenerationConfig": {
+                "maxTokenCount": 3072,
+                "stopSequences": [],
+                "temperature": 0.7,
+                "topP": 0.9
+            }
+        })
+
+        response_body = ask(model_id, body)
+        print(f"Input token count: {response_body['inputTextTokenCount']}")
+
+        for result in response_body['results']:
+            print(f"Token count: {result['tokenCount']}")
+            print(f"Output text: {result['outputText']}")
+            print(f"Completion reason: {result['completionReason']}")
+
+    except Exception as err:
+        message = err.response["Error"]["Message"]
+        print("A client error occured: " +
+              format(message))
+
+    else:
+        print(
+            f"Finished generating text with the Amazon Titan Text Premier model {model_id}.")
+    return render(request, "pages/home.html")
+
+
+
 

@@ -109,4 +109,7 @@ class AiModelForm(forms.ModelForm):
     class Meta:
         model = Ai_conversations
         fields = ["content"]
-        labels = {"content": "相談"}
+        labels = {"content": "天気について相談を書いてください"}
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0288d1] mt-2" rows="4"'})
+        }

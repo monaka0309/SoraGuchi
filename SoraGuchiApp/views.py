@@ -190,15 +190,17 @@ def chat_view(request):
         }
     })
 
-    response_body = generate_text(model_id, body)
-    output_text = response_body['results'][0]['outputText'] if response_body['results'] else "結果なし"
+    # response_body = generate_text(model_id, body)
 
-    print(f"入力トークン: {response_body['inputTextTokenCount']}")
+    # output_text = response_body['results'][0]['outputText'] if response_body['results'] else "結果なし"
+    output_text = "申し訳ありません。ただいまメンテナンス中により、使用できません。"
 
-    for result in response_body['results']:
-        print(f"トークン数: {result['tokenCount']}")
-        print(f"結果: {result['outputText']}")
-        print(f"Completion reason: {result['completionReason']}")
+    # コンソールで出力確認。
+    # print(f"入力トークン: {response_body['inputTextTokenCount']}")
+    # for result in response_body['results']:
+    #     print(f"トークン数: {result['tokenCount']}")
+    #     print(f"結果: {result['outputText']}")
+    #     print(f"Completion reason: {result['completionReason']}")
 
     return render(request, "ai/result.html", context={
         "content": prompt,

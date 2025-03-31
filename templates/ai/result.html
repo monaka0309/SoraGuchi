@@ -3,16 +3,15 @@
 {% load static %}
 
 <div>
-    <h1>天気について相談してみよう！</h1>
-    <h2>結果</h2>
-    <p>{{aiForm}}</p>
+    <h1>結果</h1>
+    <h2>質問内容：{{ content }}</h2>
     {% if message %}
         <p>{{ message }}</p>
-    {% end %}
-    {% if response %}
-        <p>{{ response }}</p>
+    {% endif %}
+
+    {% if output_text %}
+        <p>{{ output_text }}</p>
     {% endif %}
 </div>
 
 {% endblock %}
-    

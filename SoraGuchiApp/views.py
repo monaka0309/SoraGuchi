@@ -151,8 +151,8 @@ def user_update(request, id):
         "user_update_form": user_update_form,
     })
 
-
-def ask(model_id, body):
+# AIのモデルを指定されたモデルに質問を投げて、レスポンスをchat_viewメソッドに返す。
+def generate_text(model_id, body):
     bedrock = boto3.client(
         service_name='bedrock-runtime',
         aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
@@ -171,38 +171,39 @@ def ask(model_id, body):
 
 @login_required
 def chat_view(request):
-    try:
-        model_id = 'amazon.titan-text-premier-v1:0'
-
-        prompt = """日本で2番目に高い山は？ """
-
-        body = json.dumps({
-            "inputText": prompt,
-            "textGenerationConfig": {
-                "maxTokenCount": 3072,
-                "stopSequences": [],
-                "temperature": 0.7,
-                "topP": 0.9
-            }
+    model_id = 'amazon.titan-text-premier-v1:0'
+    aiForm = forms.AiModelForm(request.POST or None)
+    if aiForm.is_valid():
+        prompt = aiForm.cleaned_data["content"]
+    else:
+        return render(request, "ai/chat_view.html", context={
+            "aiForm": aiForm,
         })
 
-        response_body = ask(model_id, body)
-        print(f"Input token count: {response_body['inputTextTokenCount']}")
+    body = json.dumps({
+        "inputText": prompt,
+        "textGenerationConfig": {
+            "maxTokenCount": 3072,
+            "stopSequences": [],
+            "temperature": 0.7,
+            "topP": 0.9
+        }
+    })
 
-        for result in response_body['results']:
-            print(f"Token count: {result['tokenCount']}")
-            print(f"Output text: {result['outputText']}")
-            print(f"Completion reason: {result['completionReason']}")
+    response_body = generate_text(model_id, body)
+    output_text = response_body['results'][0]['outputText'] if response_body['results'] else "結果なし"
 
-    except Exception as err:
-        message = err.response["Error"]["Message"]
-        print("A client error occured: " +
-              format(message))
+    print(f"入力トークン: {response_body['inputTextTokenCount']}")
 
-    else:
-        print(
-            f"Finished generating text with the Amazon Titan Text Premier model {model_id}.")
-    return render(request, "pages/home.html")
+    for result in response_body['results']:
+        print(f"トークン数: {result['tokenCount']}")
+        print(f"結果: {result['outputText']}")
+        print(f"Completion reason: {result['completionReason']}")
+
+    return render(request, "ai/result.html", context={
+        "content": prompt,
+        "output_text": output_text
+        })
 
 
 

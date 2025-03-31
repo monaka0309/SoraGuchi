@@ -104,4 +104,3 @@ class UserUpdateForm(forms.ModelForm):
             'username': forms.TextInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
             'email': forms.TextInput(attrs={'class': 'w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]'}),
         }
-    

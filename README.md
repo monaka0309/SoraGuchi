@@ -27,11 +27,11 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
 - 天気データ（id, date, prefecture, temperature_max, temperature_min,　precipitation(降水確率), weather_type, description, created_at, updated_at）
   - 地域ごとの天気、降水確率、最高気温、最低気温の表示。
   - 一週間の天気の表示。
-- AIコンテンツ（id, user_id, content, created_at, updated_at）
-  - AIへの相談チャット。
-  - ユーザーが希望するカテゴリーへの相談。
 - カテゴリー（id, AiContent_id, cheering(励まし), clothes(洋服), washing(洗濯), farming(農業)）
   - ユーザーが指定したカテゴリーについて相談できる。（送るメッセージの効率化。）
+- AI
+  - AIへの相談チャット。
+  - ユーザーが希望するカテゴリーへの相談。
 
 #### 詳細
 - ログインユーザー
@@ -39,7 +39,7 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
   - LINEと連携し、通知をもらうことができる。
 - 未ログインユーザー
   - 天気を確認できる。
-  - チャットに相談ができる。
+  - 投稿一覧を見ることができる。
 
 ### 今後実装したい機能
 - 天気APIの導入。

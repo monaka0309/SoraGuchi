@@ -27,8 +27,11 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 env = environ.Env()
 env.read_env('.env')
 
-#.envファイルを参照。
 SECRET_KEY = env('SECRET_KEY')
+
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_REGION = env('AWS_REGION')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False

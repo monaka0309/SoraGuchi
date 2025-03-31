@@ -33,6 +33,10 @@ https://soraguchi-g9anc2e6hud4cqcw.japaneast-01.azurewebsites.net/soraguchi/
   - AIへの相談チャット。
   - ユーザーが希望するカテゴリーへの相談。
 
+|[![Image from Gyazo](https://i.gyazo.com/eec9f8a54efac73e0ebdb05f2428a196.png)](https://gyazo.com/eec9f8a54efac73e0ebdb05f2428a196) | [![Image from Gyazo](https://i.gyazo.com/c14b8677291571f267bb9c146cffe85e.jpg)](https://gyazo.com/c14b8677291571f267bb9c146cffe85e) |
+|---|---|
+
+
 #### 詳細
 - ログインユーザー
   - 愚痴を発信し共有できる。

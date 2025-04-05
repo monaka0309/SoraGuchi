@@ -172,7 +172,7 @@ def generate_text(model_id, body):
 @login_required
 def chat_view(request):
     model_id = 'amazon.titan-text-premier-v1:0'
-    aiForm = forms.AiModelForm(request.POST or None)
+    aiForm = forms.AiForm(request.POST or None)
     if aiForm.is_valid():
         prompt = aiForm.cleaned_data["content"]
     else:

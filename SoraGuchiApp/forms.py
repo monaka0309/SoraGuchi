@@ -104,3 +104,9 @@ class UserUpdateForm(forms.ModelForm):
             'username': forms.TextInput(attrs={'class': "w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]"}),
             'email': forms.TextInput(attrs={'class': 'w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#00acc1]'}),
         }
+
+class AiForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0288d1] mt-2" rows="4"'}), label="天気について相談を書いてください")
+    widgets = {
+    'content': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0288d1] mt-2" rows="4"'})
+    }
